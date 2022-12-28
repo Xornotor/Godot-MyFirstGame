@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/3 - Bottom_leaf_piles.png" type="Texture" id=1]
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/6 - Distant_trees.png" type="Texture" id=2]
@@ -17,8 +17,6 @@
 [ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Prefabs/Checkpoint.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scripts/Reset_Level.gd" type="Script" id=17]
-[ext_resource path="res://Prefabs/Transition_in.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Prefabs/Transition_out.tscn" type="PackedScene" id=19]
 
 [sub_resource type="Shader" id=60]
 code = "shader_type canvas_item;
@@ -1507,10 +1505,6 @@ position = Vector2( 80, -32 )
 
 [node name="Clocks" parent="HUD/HBoxContainer" index="1"]
 minutes = 2
-
-[node name="Transition_in" parent="." instance=ExtResource( 18 )]
-
-[node name="Transition_out" parent="." instance=ExtResource( 19 )]
 
 [connection signal="body_entered" from="fallzone" to="fallzone" method="_on_fallzone_body_entered"]
 
