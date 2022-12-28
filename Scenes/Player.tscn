@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Virtual Guy/Idle (32x32).png" type="Texture" id=2]
@@ -283,10 +283,13 @@ tracks/2/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 11, 12.5 )
+extents = Vector2( 11, 10 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 12, 10 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 11, 2.5 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 0, -16 )
@@ -320,7 +323,7 @@ anims/jump = SubResource( 4 )
 anims/run = SubResource( 5 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 3.5 )
+position = Vector2( 0, 6 )
 shape = SubResource( 3 )
 
 [node name="raycasts" type="Node2D" parent="."]
@@ -352,14 +355,14 @@ collision_mask = 26
 [node name="camera" type="Camera2D" parent="."]
 current = true
 limit_left = -32
-limit_top = -220
+limit_top = -300
 limit_right = 1203
 limit_bottom = 200
 limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
-smoothing_speed = 3.0
+smoothing_speed = 8.0
 drag_margin_left = 0.4
 drag_margin_top = 0.39
 drag_margin_right = 0.0
@@ -375,4 +378,12 @@ collision_mask = 2
 modulate = Color( 0.921569, 0.164706, 0.164706, 1 )
 shape = SubResource( 8 )
 
+[node name="headCollider" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="collision" type="CollisionShape2D" parent="headCollider"]
+position = Vector2( 0, -7.5 )
+shape = SubResource( 16 )
+
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="headCollider" to="." method="_on_headCollider_body_entered"]
