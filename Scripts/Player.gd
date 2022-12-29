@@ -19,6 +19,7 @@ onready var raycasts = $raycasts
 signal change_life(player_health)
 
 func _ready():
+	Global.set("player", self)
 	connect("change_life", get_parent().get_node("HUD/HBoxContainer/HP"), "on_change_life")
 	emit_signal("change_life", max_health)
 	position.x = Global.checkpoint_pos + 5
@@ -105,3 +106,16 @@ func hit_checkpoint():
 func _on_headCollider_body_entered(body):
 	if body.has_method("destroy"):
 		body.destroy()
+
+func _on_hurtbox_area_entered(area):
+	player_health -= 1
+	hurted = true
+	emit_signal("change_life", player_health)
+	knockback()
+	get_node("hurtbox/collision").set_deferred("disabled", true)
+	yield(get_tree().create_timer(0.5), "timeout")
+	get_node("hurtbox/collision").set_deferred("disabled", false)
+	hurted = false
+	if player_health <= 0:
+		queue_free()
+		get_tree().reload_current_scene()

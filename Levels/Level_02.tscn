@@ -1,8 +1,9 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/3 - Bottom_leaf_piles.png" type="Texture" id=1]
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/6 - Distant_trees.png" type="Texture" id=2]
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/4 - Tree_row_BG_1.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Plantie.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Seasonal Tilesets/Seasonal Tilesets/2 - Autumn Forest/Background parts/5 - Tree_row_BG_2.png" type="Texture" id=5]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" type="Texture" id=6]
 [ext_resource path="res://Prefabs/Goal.tscn" type="PackedScene" id=7]
@@ -1433,9 +1434,6 @@ position = Vector2( 1072, -96 )
 [node name="Apple11" parent="Fruits" instance=ExtResource( 11 )]
 position = Vector2( 1104, -96 )
 
-[node name="Apple5" parent="Fruits" instance=ExtResource( 11 )]
-position = Vector2( 752, -16 )
-
 [node name="Banana" parent="Fruits" instance=ExtResource( 10 )]
 position = Vector2( 192, 31 )
 
@@ -1469,18 +1467,10 @@ position = Vector2( 992, -96 )
 [node name="Banana13" parent="Fruits" instance=ExtResource( 10 )]
 position = Vector2( 1088, -96 )
 
-[node name="Banana8" parent="Fruits" instance=ExtResource( 10 )]
-position = Vector2( 784, -16 )
-
 [node name="Breakboxes" type="Node2D" parent="."]
 
 [node name="breakbox" parent="Breakboxes" instance=ExtResource( 18 )]
-position = Vector2( 464, -48 )
-fruit_instance = [ ExtResource( 19 ), ExtResource( 20 ) ]
-fruits = 5
-
-[node name="breakbox2" parent="Breakboxes" instance=ExtResource( 18 )]
-position = Vector2( 432, -48 )
+position = Vector2( 800, -64 )
 fruit_instance = [ ExtResource( 19 ), ExtResource( 20 ) ]
 fruits = 5
 
@@ -1499,10 +1489,10 @@ scale = Vector2( 1.8, 1.8 )
 position = Vector2( 199, -100 )
 
 [node name="Birdie2" parent="Enemies" instance=ExtResource( 12 )]
-position = Vector2( 512, 0 )
+position = Vector2( 624, -118 )
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
-position = Vector2( 80, -32 )
+position = Vector2( 80, -160 )
 
 [node name="HUD" parent="." instance=ExtResource( 15 )]
 
@@ -1516,6 +1506,9 @@ __meta__ = {
 
 [node name="Checkpoint" parent="." instance=ExtResource( 16 )]
 position = Vector2( 672, -80 )
+
+[node name="Plantie" parent="." instance=ExtResource( 4 )]
+position = Vector2( 432, 31 )
 
 [connection signal="body_entered" from="fallzone" to="fallzone" method="_on_fallzone_body_entered"]
 

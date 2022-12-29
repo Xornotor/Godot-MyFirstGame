@@ -46,7 +46,6 @@ func _set_animation():
 	if $anim.assigned_animation != anim:
 		$anim.play(anim)
 
-
 func _on_Hitbox_body_entered(body):
 	hitted = true
 	health -= 1
