@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Items/Checkpoints/Checkpoint/Checkpoint (No Flag).png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Checkpoint.gd" type="Script" id=2]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Items/Checkpoints/Checkpoint/Checkpoint (Flag Out) (64x64).png" type="Texture" id=3]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png" type="Texture" id=4]
+[ext_resource path="res://Audio/Sounds/Sounds/confirmation_001.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 96 )
@@ -166,6 +167,12 @@ anims/RESET = SubResource( 2 )
 anims/checked = SubResource( 3 )
 anims/flowing = SubResource( 4 )
 anims/idle = SubResource( 5 )
+
+[node name="checkpointFx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -7.091
+pitch_scale = 1.38
+mix_target = 2
 
 [connection signal="body_entered" from="." to="." method="_on_Checkpoint_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

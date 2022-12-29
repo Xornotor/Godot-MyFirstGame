@@ -114,10 +114,9 @@ anims/RESET = SubResource( 2 )
 anims/collected = SubResource( 4 )
 anims/motion = SubResource( 3 )
 
-[node name="collectFx" type="AudioStreamPlayer2D" parent="."]
+[node name="collectFx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -1.0
-area_mask = 0
+volume_db = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_items_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

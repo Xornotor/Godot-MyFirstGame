@@ -14,6 +14,9 @@ var max_health = 3
 var knockback_dir = 1
 var knockback_int = 500
 var hurted = false
+
+var is_pushing = false
+
 onready var raycasts = $raycasts
 
 signal change_life(player_health)
@@ -34,6 +37,16 @@ func _get_input():
 		knockback_dir = move_direction
 		$steps_fx.scale.x = -move_direction
 		
+	if velocity.x > 1:
+		$raycasts/pushRight.set_enabled(true)
+	else:
+		$raycasts/pushRight.set_enabled(false)
+		
+	if velocity.x < -1:
+		$raycasts/pushLeft.set_enabled(true)
+	else:
+		$raycasts/pushLeft.set_enabled(false)
+		
 func _input(event):
 	if event.is_action_pressed("jump") and is_grounded:
 		velocity.y = jump_force
@@ -50,9 +63,10 @@ func _set_animation():
 	
 	if !is_grounded:
 		anim = "jump"
-	elif velocity.x != 0:
+	elif velocity.x != 0 or is_pushing:
 		anim = "run"
-		$steps_fx.set_emitting(true)
+		if is_grounded:
+			$steps_fx.set_emitting(true)
 		
 	if velocity.y > 0 and !is_grounded:
 		anim = "fall"
@@ -69,6 +83,17 @@ func _physics_process(delta):
 	
 	if !hurted:
 		_get_input()
+	
+	if $raycasts/pushRight.is_colliding():
+		var object = $raycasts/pushRight.get_collider()
+		object.move_and_slide(Vector2(30, 0) * move_speed * delta)
+		is_pushing = true
+	elif $raycasts/pushLeft.is_colliding():
+		var object = $raycasts/pushLeft.get_collider()
+		object.move_and_slide(Vector2(-30, 0) * move_speed * delta)
+		is_pushing = true
+	else:
+		is_pushing = false
 	
 	velocity = move_and_slide(velocity, UP)
 	is_grounded = _check_is_ground()

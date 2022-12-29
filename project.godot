@@ -93,6 +93,7 @@ jump={
 2d_physics/layer_5="Traps"
 2d_physics/layer_6="Hurtboxes"
 2d_physics/layer_7="Hitboxes"
+2d_physics/layer_8="Pushables"
 
 [physics]
 
