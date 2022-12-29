@@ -37,6 +37,7 @@ func _get_input():
 func _input(event):
 	if event.is_action_pressed("jump") and is_grounded:
 		velocity.y = jump_force
+		$jumpFx.play()
 		
 func _check_is_ground():
 	for raycast in raycasts.get_children():
@@ -90,6 +91,7 @@ func knockback():
 func _on_hurtbox_body_entered(body):
 	player_health -= 1
 	hurted = true
+	$hurtFx.play()
 	emit_signal("change_life", player_health)
 	knockback()
 	get_node("hurtbox/collision").set_deferred("disabled", true)
@@ -110,6 +112,7 @@ func _on_headCollider_body_entered(body):
 func _on_hurtbox_area_entered(area):
 	player_health -= 1
 	hurted = true
+	$hurtFx.play()
 	emit_signal("change_life", player_health)
 	knockback()
 	get_node("hurtbox/collision").set_deferred("disabled", true)

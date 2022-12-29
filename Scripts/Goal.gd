@@ -10,6 +10,7 @@ func _on_Goal_body_entered(body):
 		$Timer.start()
 		$collision.queue_free()
 		$confetti.emitting = true
+		$goalFx.play()
 
 func _on_Timer_timeout():
 	Transition.change_scene(path)

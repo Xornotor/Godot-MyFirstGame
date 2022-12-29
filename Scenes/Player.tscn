@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Virtual Guy/Idle (32x32).png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Virtual Guy/Fall (32x32).png" type="Texture" id=6]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Appearing (96x96).png" type="Texture" id=7]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Other/Dust Particle.png" type="Texture" id=8]
+[ext_resource path="res://Audio/Sounds/Sounds/jump1.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Audio/Sounds/Sounds/error_007.ogg" type="AudioStream" id=10]
 
 [sub_resource type="Gradient" id=12]
 offsets = PoolRealArray( 0.00487805, 0.482927, 1 )
@@ -384,6 +386,16 @@ collision_mask = 16
 [node name="collision" type="CollisionShape2D" parent="headCollider"]
 position = Vector2( 0, -7.5 )
 shape = SubResource( 16 )
+
+[node name="jumpFx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+volume_db = -18.0
+pitch_scale = 0.94
+area_mask = 0
+
+[node name="hurtFx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+volume_db = -8.667
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

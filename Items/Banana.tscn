@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Items/Fruits/Bananas.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Items.gd" type="Script" id=2]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Items/Fruits/Collected.png" type="Texture" id=3]
+[ext_resource path="res://Audio/Sounds/Sounds/powerUp2.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -112,6 +113,11 @@ playback_speed = 1.5
 anims/RESET = SubResource( 2 )
 anims/collected = SubResource( 4 )
 anims/motion = SubResource( 3 )
+
+[node name="collectFx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -1.0
+area_mask = 0
 
 [connection signal="body_entered" from="." to="." method="_on_items_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
