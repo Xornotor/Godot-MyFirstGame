@@ -8,7 +8,7 @@ var move_direction = -1
 var gravity = 1200
 var hitted = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity.x = speed * move_direction
 	velocity = move_and_slide(velocity)
 	

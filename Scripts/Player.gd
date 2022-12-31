@@ -8,7 +8,7 @@ var jump_force = -480
 var startup = true
 var is_grounded
 
-var player_health = 3
+#var player_health = 3
 var max_health = 3
 
 var knockback_dir = 1
@@ -73,6 +73,9 @@ func _set_animation():
 
 	if hurted:
 		anim = "hit"
+		
+	if Global.player_health <= 0:
+		anim = "destroyed"
 
 	if $anim.assigned_animation != anim:
 		$anim.play(anim)
@@ -113,19 +116,8 @@ func knockback():
 		
 	velocity = move_and_slide(velocity)
 
-func _on_hurtbox_body_entered(body):
-	player_health -= 1
-	hurted = true
-	$hurtFx.play()
-	emit_signal("change_life", player_health)
-	knockback()
-	get_node("hurtbox/collision").set_deferred("disabled", true)
-	yield(get_tree().create_timer(0.5), "timeout")
-	get_node("hurtbox/collision").set_deferred("disabled", false)
-	hurted = false
-	if player_health <= 0:
-		queue_free()
-		get_tree().reload_current_scene()
+func _on_hurtbox_body_entered(_body):
+	playerDamage()
 		
 func hit_checkpoint():
 	Global.checkpoint_pos = position.x
@@ -134,16 +126,39 @@ func _on_headCollider_body_entered(body):
 	if body.has_method("destroy"):
 		body.destroy()
 
-func _on_hurtbox_area_entered(area):
-	player_health -= 1
+func _on_hurtbox_area_entered(_area):
+	playerDamage()
+
+func gameOver():
+	if Global.player_health <= 0:
+		yield(get_tree().create_timer(1.5), "timeout")
+		Transition.change_scene("res://HUD/GameOver.tscn")
+
+
+func _on_anim_animation_finished(anim_name):
+	if(anim_name == "destroyed"):
+		self.visible = false
+		self.set_collision_layer_bit(0, false)
+		self.set_collision_mask_bit(1, false)
+		self.set_collision_mask_bit(6, false)
+		#$collision.disabled = true
+		$hurtbox/collision.disabled = true
+		$headCollider/collision.disabled = true
+		$raycasts/left.enabled = false
+		$raycasts/right.enabled = false
+		$raycasts/pushLeft.enabled = false
+		$raycasts/pushRight.enabled = false
+		$raycasts/raycast1.enabled = false
+		$raycasts/raycast2.enabled = false
+
+func playerDamage():
+	Global.player_health -= 1
 	hurted = true
 	$hurtFx.play()
-	emit_signal("change_life", player_health)
+	emit_signal("change_life", Global.player_health)
 	knockback()
 	get_node("hurtbox/collision").set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	get_node("hurtbox/collision").set_deferred("disabled", false)
 	hurted = false
-	if player_health <= 0:
-		queue_free()
-		get_tree().reload_current_scene()
+	gameOver()

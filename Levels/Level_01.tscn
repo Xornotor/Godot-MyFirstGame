@@ -1512,6 +1512,9 @@ position = Vector2( 288, 0 )
 [node name="Checkpoint2" parent="Checkpoints" instance=ExtResource( 16 )]
 position = Vector2( 688, 80 )
 
+[node name="Trampolim" parent="." instance=ExtResource( 18 )]
+position = Vector2( 1056, 112 )
+
 [node name="Goal" parent="." instance=ExtResource( 17 )]
 position = Vector2( 1111, -80 )
 path = "res://Levels/Level_02.tscn"
@@ -1523,9 +1526,6 @@ position = Vector2( 80, -32 )
 
 [node name="Clocks" parent="HUD/HBoxContainer" index="1"]
 minutes = 2
-
-[node name="Trampolim" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1056, 112 )
 
 [connection signal="body_entered" from="fallzone" to="fallzone" method="_on_fallzone_body_entered"]
 

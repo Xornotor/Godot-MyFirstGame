@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var platform = $platform
+onready var saw = $saw
 onready var tween = $Tween
 
 export var speed = 3.0
@@ -43,4 +43,4 @@ func _start_tween():
 	tween.start()
 	
 func _physics_process(_delta):
-	platform.position = platform.position.linear_interpolate(follow, 0.1)
+	saw.position = saw.position.linear_interpolate(follow, 0.1)

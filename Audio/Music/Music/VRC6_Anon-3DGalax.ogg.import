@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/VRC6_Anon-3DGalax.ogg-597b15825fd3f95f86fbbf3e0b555d5b.oggstr"
+
+[deps]
+
+source_file="res://Audio/Music/Music/VRC6_Anon-3DGalax.ogg"
+dest_files=[ "res://.import/VRC6_Anon-3DGalax.ogg-597b15825fd3f95f86fbbf3e0b555d5b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

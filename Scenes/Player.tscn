@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Virtual Guy/Idle (32x32).png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Other/Dust Particle.png" type="Texture" id=8]
 [ext_resource path="res://Audio/Sounds/Sounds/jump1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Audio/Sounds/Sounds/error_007.ogg" type="AudioStream" id=10]
+[ext_resource path="res://PixelAdventure/Pixel Adventure 1/Free/Main Characters/Desappearing (96x96).png" type="Texture" id=11]
 
 [sub_resource type="Gradient" id=12]
 offsets = PoolRealArray( 0.00487805, 0.482927, 1 )
@@ -19,7 +20,7 @@ colors = PoolColorArray( 1, 1, 1, 0.160784, 1, 1, 1, 0.941176, 1, 1, 1, 0.313726
 gradient = SubResource( 12 )
 
 [sub_resource type="Curve" id=14]
-_data = [ Vector2( 0.00438596, 0.293182 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.736364 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.472727 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=15]
 curve = SubResource( 14 )
@@ -66,6 +67,46 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ ExtResource( 7 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("texture:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "destroyed"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("texture:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("texture:frame")
@@ -302,22 +343,25 @@ script = ExtResource( 1 )
 position = Vector2( 0, 9 )
 scale = Vector2( -1, 1 )
 emitting = false
-lifetime = 0.2
+amount = 10
+lifetime = 0.07
 one_shot = true
-speed_scale = 1.5
-randomness = 0.7
+speed_scale = 0.3
+explosiveness = 0.3
+randomness = 0.8
 process_material = SubResource( 11 )
 texture = ExtResource( 8 )
 
 [node name="texture" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 11
-frame = 9
+frame = 1
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/RESET = SubResource( 9 )
 anims/appearing = SubResource( 10 )
+anims/destroyed = SubResource( 17 )
 anims/fall = SubResource( 7 )
 anims/hit = SubResource( 6 )
 anims/idle = SubResource( 2 )
@@ -364,24 +408,6 @@ position = Vector2( 0, 5 )
 cast_to = Vector2( 13, 0 )
 collision_mask = 128
 
-[node name="camera" type="Camera2D" parent="."]
-current = true
-limit_left = -32
-limit_top = -300
-limit_right = 1203
-limit_bottom = 200
-limit_smoothed = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = true
-smoothing_speed = 8.0
-drag_margin_left = 0.4
-drag_margin_top = 0.39
-drag_margin_right = 0.0
-drag_margin_bottom = 0.3
-editor_draw_limits = true
-editor_draw_drag_margin = true
-
 [node name="hurtbox" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 2
@@ -407,6 +433,25 @@ area_mask = 0
 stream = ExtResource( 10 )
 volume_db = -8.667
 
+[node name="camera" type="Camera2D" parent="."]
+current = true
+limit_left = -32
+limit_top = -300
+limit_right = 1203
+limit_bottom = 200
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 8.0
+drag_margin_left = 0.4
+drag_margin_top = 0.39
+drag_margin_right = 0.0
+drag_margin_bottom = 0.3
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="headCollider" to="." method="_on_headCollider_body_entered"]

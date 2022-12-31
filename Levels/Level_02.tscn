@@ -21,7 +21,7 @@
 [ext_resource path="res://Items/apple_rig.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Items/banana_rig.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Audio/Music/Music/Swinging Pants.ogg" type="AudioStream" id=21]
-[ext_resource path="res://Prefabs/MoveBox.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Prefabs/FireTrap.tscn" type="PackedScene" id=23]
 
 [sub_resource type="TileSet" id=62]
 0/name = "Terrain (16x16).png 0"
@@ -1344,31 +1344,31 @@ __meta__ = {
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Forest BG Trees" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.4, 1 )
 motion_mirroring = Vector2( 576, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Sky"]
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Forest BG Trees"]
 position = Vector2( 0, -215 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Cloud Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Back Trees" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.55, 0.85 )
 motion_mirroring = Vector2( 576, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Cloud Mountains"]
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Back Trees"]
 position = Vector2( 0, -215 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Hills" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Front Trees" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.7, 0.95 )
 motion_mirroring = Vector2( 576, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Hills"]
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Front Trees"]
 position = Vector2( 0, -215 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
@@ -1410,10 +1410,10 @@ shape = SubResource( 61 )
 
 [node name="Goal" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1120, 64 )
-path = "res://Levels/Level_01.tscn"
+path = "res://Levels/Level_03.tscn"
 
-[node name="MoveBox" parent="." instance=ExtResource( 22 )]
-position = Vector2( 120, 104 )
+[node name="Checkpoint" parent="." instance=ExtResource( 16 )]
+position = Vector2( 672, -80 )
 
 [node name="Fruits" type="Node2D" parent="."]
 
@@ -1425,15 +1425,6 @@ position = Vector2( 192, 96 )
 
 [node name="Apple3" parent="Fruits" instance=ExtResource( 11 )]
 position = Vector2( 192, -32 )
-
-[node name="Apple6" parent="Fruits" instance=ExtResource( 11 )]
-position = Vector2( 848, 29 )
-
-[node name="Apple7" parent="Fruits" instance=ExtResource( 11 )]
-position = Vector2( 848, -96 )
-
-[node name="Apple8" parent="Fruits" instance=ExtResource( 11 )]
-position = Vector2( 880, -96 )
 
 [node name="Apple9" parent="Fruits" instance=ExtResource( 11 )]
 position = Vector2( 976, -96 )
@@ -1462,12 +1453,6 @@ position = Vector2( 304, -128 )
 [node name="Banana6" parent="Fruits" instance=ExtResource( 10 )]
 position = Vector2( 336, -128 )
 
-[node name="Banana9" parent="Fruits" instance=ExtResource( 10 )]
-position = Vector2( 880, 29 )
-
-[node name="Banana10" parent="Fruits" instance=ExtResource( 10 )]
-position = Vector2( 864, -96 )
-
 [node name="Banana11" parent="Fruits" instance=ExtResource( 10 )]
 position = Vector2( 960, -96 )
 
@@ -1480,7 +1465,7 @@ position = Vector2( 1088, -96 )
 [node name="Breakboxes" type="Node2D" parent="."]
 
 [node name="breakbox" parent="Breakboxes" instance=ExtResource( 18 )]
-position = Vector2( 800, -64 )
+position = Vector2( 864, -142 )
 fruit_instance = [ ExtResource( 19 ), ExtResource( 20 ) ]
 fruits = 5
 
@@ -1501,8 +1486,14 @@ position = Vector2( 199, -100 )
 [node name="Birdie2" parent="Enemies" instance=ExtResource( 12 )]
 position = Vector2( 624, -118 )
 
+[node name="FireTrap" parent="." instance=ExtResource( 23 )]
+position = Vector2( 384, 34 )
+
 [node name="Player" parent="." instance=ExtResource( 9 )]
 position = Vector2( 80, -160 )
+
+[node name="Plantie" parent="." instance=ExtResource( 4 )]
+position = Vector2( 432, 31 )
 
 [node name="HUD" parent="." instance=ExtResource( 15 )]
 
@@ -1513,12 +1504,6 @@ minutes = 2
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Checkpoint" parent="." instance=ExtResource( 16 )]
-position = Vector2( 672, -80 )
-
-[node name="Plantie" parent="." instance=ExtResource( 4 )]
-position = Vector2( 432, 31 )
 
 [connection signal="body_entered" from="fallzone" to="fallzone" method="_on_fallzone_body_entered"]
 

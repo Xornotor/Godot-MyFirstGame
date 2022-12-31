@@ -1,6 +1,6 @@
 extends enemyBase
 
-func _process(delta):
+func _process(_delta):
 	velocity.y = 0
 	if $ray_wall.is_colliding():
 		$ray_wall.scale.x *= -1
